@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Tea Subscription Request' do
-  let!(:subscriptions) { create_list(:subscription, 3, status: 0) }
+  let!(:subscriptions) { create_list(:subscription, 3) }
   let!(:subscription_1) { subscriptions.first }
   let!(:subscription_2) { subscriptions.second }
   let!(:subscription_3) { subscriptions.third }
@@ -32,6 +32,23 @@ RSpec.describe 'Tea Subscription Request' do
       expect(created_sub.tea_id).to eq(sub_params[:tea_id])
       expect(created_sub.customer_id).to eq(sub_params[:customer_id])
       expect(created_sub.status).to eq('active')
+    end
+  end
+
+  describe 'subscrition cancellation' do
+    it 'cancels a customer subscription' do
+      id = create(:subscription).id
+      previous_status = Subscription.last.status
+      sub_params = { status: 1 }
+
+      headers = { 'CONTENT_TYPE' => 'application/json' }
+
+      patch "/api/v1/subscriptions/#{id}", headers: headers, params: JSON.generate(subscription: sub_params)
+      subscription = Subscription.find_by(id: id)
+
+      expect(response).to be_successful
+      expect(subscription.status).to_not eq(previous_status)
+      expect(subscription.status).to eq('cancelled')
     end
   end
 end
