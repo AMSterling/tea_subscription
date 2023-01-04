@@ -1,8 +1,9 @@
 FactoryBot.define do
   factory :subscription do
-    title { "#{customer.last_name}'s #{tea.title}" }
-    status { [active, inactive].sample }
-    frequency { [one_time, weekly, monthly, quarterly].sample }
+    title { "#{customer.first_name} #{customer.last_name}'s #{tea.title}" }
+    status { [0, 1].sample }
+    price { Faker::Number.within(range: 7..15) }
+    frequency { [0, 1, 2, 3].sample }
     tea { create(:tea) }
     customer { create(:customer) }
   end
