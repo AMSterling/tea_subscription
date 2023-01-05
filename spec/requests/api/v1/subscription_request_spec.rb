@@ -114,6 +114,7 @@ RSpec.describe 'Tea Subscription Request' do
         expect(subscription).to have_key(:attributes)
         expect(subscription[:attributes]).to be_a Hash
         expect(subscription[:attributes][:title]).to be_a String
+        expect(subscription[:attributes][:title]).to include("#{customer_1.first_name} #{customer_1.last_name}")
         expect(subscription[:attributes][:status]).to be_a String
         expect(subscription[:attributes][:status]).to be_in(['active', 'cancelled'])
         expect(subscription[:attributes][:price]).to be_an Integer
