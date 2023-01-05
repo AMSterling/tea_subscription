@@ -21,10 +21,6 @@ class Api::V1::SubscriptionsController < ApplicationController
     @sub = Subscription.find_by_id(params[:id])
   end
 
-  def json_response(object, status = :ok)
-    render json: SubscriptionSerializer.new(object), status: status
-  end
-
   def sub_params
     params.require(:subscription).permit(:title, :price, :frequency, :tea_id, :customer_id, :status)
   end
