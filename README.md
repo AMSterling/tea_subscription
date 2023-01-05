@@ -92,17 +92,19 @@ POST '/api/v1/subscriptions'
 
 **Sample response (status 200)**
 
- ```json
-"data": {
-    "id"=>565,
-    "title"=>"Bridgette Konopelski's Black",
-    "price"=>15,
-    "status"=>"active",
-    "frequency"=>"monthly",
-    "tea_id"=>575,
-    "customer_id"=>583,
-    "created_at"=>Thu, 05 Jan 2023 17:30:42 UTC +00:00,
-    "updated_at"=>Thu, 05 Jan 2023 17:30:42 UTC +00:00
+ ```
+{
+  "data": {
+      "id" => 565,
+      "title" => "Bridgette Konopelski's Black",
+      "price" => 15,
+      "status" => "active",
+      "frequency" => "monthly",
+      "tea_id" => 575,
+      "customer_id" => 583,
+      "created_at" => Thu, 05 Jan 2023 17:30:42 UTC +00:00,
+      "updated_at" => Thu, 05 Jan 2023 17:30:42 UTC +00:00
+  }
 }
  ```
 
@@ -124,18 +126,18 @@ PATCH '/api/v1/subscriptions'
 
 **Sample response (status 200)**
 
- ```json
+ ```
 {
     "data": {
-      "id"=>579,
-      "title"=>"Paula Cole's White",
-      "price"=>14,
-      "status"=>"cancelled",
-      "frequency"=>"quarterly",
-      "tea_id"=>589,
-      "customer_id"=>590,
-      "created_at"=>Thu, 05 Jan 2023 17:33:42 UTC +00:00,
-      "updated_at"=>Thu, 05 Jan 2023 17:33:42 UTC +00:00
+      "id" => 579,
+      "title" => "Paula Cole's White",
+      "price" => 14,
+      "status" => "cancelled",
+      "frequency" => "quarterly",
+      "tea_id" => 589,
+      "customer_id" => 590,
+      "created_at" => Thu, 05 Jan 2023 17:33:42 UTC +00:00,
+      "updated_at" => Thu, 05 Jan 2023 17:33:42 UTC +00:00
     }
 }
  ```
@@ -154,10 +156,11 @@ Fetch all subscriptions belonging to a customer.
 GET "/api/v1/customers/#{customer_id}/subscriptions"
 ```
 
-**Sample response (status 201)**
+**Sample response (status 200)**
 
- ```json
- {:data=>
+ ```
+ {
+   :data=>
   [{:id=>"594",
     :type=>"subscription",
     :attributes=>
@@ -169,7 +172,8 @@ GET "/api/v1/customers/#{customer_id}/subscriptions"
    {:id=>"596",
     :type=>"subscription",
     :attributes=>
-     {:title=>"Jan Muller's Herbal", :status=>"active", :price=>12, :frequency=>"quarterly", :tea_id=>606, :customer_id=>598}}]}
+     {:title=>"Jan Muller's Herbal", :status=>"active", :price=>12, :frequency=>"quarterly", :tea_id=>606, :customer_id=>598}}]
+}
  ```
 
 ---
