@@ -32,6 +32,7 @@ RSpec.describe 'Tea Subscription Request' do
       created_sub = Subscription.last
 
       expect(response).to be_successful
+      expect(response).to have_http_status(200)
       expect(Subscription.count).to eq(7)
       expect(created_sub.title).to eq(sub_params[:title])
       expect(created_sub.price).to eq(sub_params[:price])
@@ -71,6 +72,7 @@ RSpec.describe 'Tea Subscription Request' do
       subscription = Subscription.find_by(id: id)
 
       expect(response).to be_successful
+      expect(response).to have_http_status(200)
       expect(subscription.status).to_not eq(previous_status)
       expect(subscription.status).to eq('cancelled')
     end
@@ -102,6 +104,7 @@ RSpec.describe 'Tea Subscription Request' do
       customer_subs = response_body[:data]
 
       expect(response).to be_successful
+      expect(response).to have_http_status(200)
       customer_subs.each do |subscription|
         expect(subscription).to have_key(:id)
         expect(subscription[:id]).to be_a String
