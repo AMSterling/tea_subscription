@@ -1,12 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe 'Tea Subscription Request' do
-  let!(:subscriptions) { create_list(:subscription, 3) }
-  let!(:subscription_1) { subscriptions.first }
-  let!(:subscription_2) { subscriptions.second }
-  let!(:subscription_3) { subscriptions.third }
+  let!(:customers) { create_list(:customer, 2) }
+  let!(:customer_1) { customers.first }
+  let!(:customer_2) { customers.second }
+  let!(:customer_1_subs) { create_list(:subscription, 3, customer: customer_1) }
+  let!(:c1_sub_1) { customer_1_subs.first }
+  let!(:c1_sub_2) { customer_1_subs.second }
+  let!(:c1_sub_3) { customer_1_subs.third }
+  let!(:customer_2_subs) { create_list(:subscription, 3, customer: customer_2) }
+  let!(:c2_sub_1) { customer_2_subs.first }
+  let!(:c2_sub_2) { customer_2_subs.second }
+  let!(:c2_sub_3) { customer_2_subs.third }
 
-  describe 'subscrition creation' do
+  context 'subscrition creation' do
     let!(:tea) { create(:tea) }
     let!(:customer) { create(:customer) }
 
@@ -21,11 +28,11 @@ RSpec.describe 'Tea Subscription Request' do
 
       headers = { "CONTENT_TYPE" => "application/json" }
 
-      post "/api/v1/subscriptions", headers: headers, params: JSON.generate(subscription: sub_params)
+      post '/api/v1/subscriptions', headers: headers, params: JSON.generate(subscription: sub_params)
       created_sub = Subscription.last
 
       expect(response).to be_successful
-      expect(Subscription.count).to eq(4)
+      expect(Subscription.count).to eq(7)
       expect(created_sub.title).to eq(sub_params[:title])
       expect(created_sub.price).to eq(sub_params[:price])
       expect(created_sub.frequency).to eq('monthly')
@@ -35,9 +42,9 @@ RSpec.describe 'Tea Subscription Request' do
     end
   end
 
-  describe 'subscrition cancellation' do
+  context 'subscrition cancellation' do
     it 'cancels a customer subscription' do
-      id = create(:subscription).id
+      id = create(:subscription, status: 0).id
       previous_status = Subscription.last.status
       sub_params = { status: 1 }
 
@@ -49,6 +56,36 @@ RSpec.describe 'Tea Subscription Request' do
       expect(response).to be_successful
       expect(subscription.status).to_not eq(previous_status)
       expect(subscription.status).to eq('cancelled')
+    end
+  end
+
+  context 'customer subscriptions' do
+    it 'retrieves all subscriptions belonging to a customer' do
+      get "/api/v1/customers/#{customer_1.id}/subscriptions"
+
+      response_body = JSON.parse(response.body, symbolize_names: true)
+      customer_subs = response_body[:data]
+
+      expect(response).to be_successful
+      customer_subs.each do |subscription|
+        expect(subscription).to have_key(:id)
+        expect(subscription[:id]).to be_a String
+        expect(subscription).to have_key(:type)
+        expect(subscription[:type]).to be_a String
+        expect(subscription[:type]).to eq('subscription')
+        expect(subscription).to have_key(:attributes)
+        expect(subscription[:attributes]).to be_a Hash
+        expect(subscription[:attributes][:title]).to be_a String
+        expect(subscription[:attributes][:status]).to be_a String
+        expect(subscription[:attributes][:status]).to be_in(['active', 'cancelled'])
+        expect(subscription[:attributes][:price]).to be_an Integer
+        expect(subscription[:attributes][:frequency]).to be_a String
+        expect(subscription[:attributes][:frequency]).to be_in(['one_time', 'weekly', 'monthly', 'quarterly'])
+        expect(subscription[:attributes][:tea_id]).to be_an Integer
+        expect(subscription[:attributes][:customer_id]).to be_an Integer
+        expect(subscription[:attributes][:customer_id]).to eq(customer_1.id)
+        expect(subscription[:attributes]).to_not have_key(:created_at)
+      end
     end
   end
 end

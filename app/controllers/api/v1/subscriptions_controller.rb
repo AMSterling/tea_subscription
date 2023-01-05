@@ -1,5 +1,6 @@
 class Api::V1::SubscriptionsController < ApplicationController
   before_action :set_subscription, only: %i[update]
+  
   def create
     subscrition = Subscription.new(sub_params)
     if subscrition.save
