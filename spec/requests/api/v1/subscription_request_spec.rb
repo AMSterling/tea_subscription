@@ -40,6 +40,22 @@ RSpec.describe 'Tea Subscription Request' do
       expect(created_sub.customer_id).to eq(sub_params[:customer_id])
       expect(created_sub.status).to eq('active')
     end
+
+    it 'returns 404 if subscription cannot be created' do
+      sub_params = ({
+        title: '',
+        price: Faker::Number.within(range: 7..15),
+        frequency: 2,
+        tea_id: tea.id,
+        customer_id: customer.id
+        })
+
+      headers = { 'CONTENT_TYPE' => 'application/json' }
+
+      post '/api/v1/subscriptions', headers: headers, params: JSON.generate(subscription: sub_params)
+
+      expect(response).to have_http_status(404)
+    end
   end
 
   context 'subscrition cancellation' do
@@ -56,6 +72,20 @@ RSpec.describe 'Tea Subscription Request' do
       expect(response).to be_successful
       expect(subscription.status).to_not eq(previous_status)
       expect(subscription.status).to eq('cancelled')
+    end
+
+    it 'returns error if subscription cannot be cancelled' do
+      id = create(:subscription, status: 0).id
+      sub_params = { status: 2 }
+
+      headers = { 'CONTENT_TYPE' => 'application/json' }
+
+      patch "/api/v1/subscriptions/#{id}", headers: headers, params: JSON.generate(subscription: sub_params)
+      subscription = Subscription.find_by(id: id)
+
+      expect(response).to_not be_successful
+      expect(response).to have_http_status(422)
+      expect(response.body).to include("{\"error\":\"error\"}")
     end
   end
 
@@ -86,6 +116,15 @@ RSpec.describe 'Tea Subscription Request' do
         expect(subscription[:attributes][:customer_id]).to eq(customer_1.id)
         expect(subscription[:attributes]).to_not have_key(:created_at)
       end
+    end
+
+    it 'returns 404 if customer cannot be found' do
+      id = 90_654_501
+
+      get "/api/v1/customers/#{id}/subscriptions"
+
+      expect(response).to have_http_status(404)
+      expect { Subscription.find(id) }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 end
