@@ -1,11 +1,13 @@
 class ApplicationController < ActionController::API
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
+  rescue_from ActiveRecord::RecordInvalid, with: :unprocessable_entity
   rescue_from ArgumentError, with: :unprocessable_entity
-  def not_found
-    render json: { error: 'error' }, status: :not_found
+
+  def not_found(_e)
+    render json: { error: _e.to_s }, status: :not_found
   end
 
-  def unprocessable_entity
-    render json: { error: 'error' }, status: :unprocessable_entity
+  def unprocessable_entity(_e)
+    render json: { error: _e.to_s }, status: :unprocessable_entity
   end
 end
