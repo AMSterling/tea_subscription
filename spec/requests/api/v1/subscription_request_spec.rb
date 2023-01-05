@@ -41,7 +41,7 @@ RSpec.describe 'Tea Subscription Request' do
       expect(created_sub.status).to eq('active')
     end
 
-    it 'returns 404 if subscription cannot be created' do
+    it 'returns 422 if subscription cannot be created' do
       sub_params = ({
         title: '',
         price: Faker::Number.within(range: 7..15),
@@ -54,7 +54,8 @@ RSpec.describe 'Tea Subscription Request' do
 
       post '/api/v1/subscriptions', headers: headers, params: JSON.generate(subscription: sub_params)
 
-      expect(response).to have_http_status(404)
+      expect(response).to have_http_status(422)
+      expect(response.body).to include("Title can't be blank")
     end
   end
 
@@ -85,7 +86,11 @@ RSpec.describe 'Tea Subscription Request' do
 
       expect(response).to_not be_successful
       expect(response).to have_http_status(422)
-      expect(response.body).to include("{\"error\":\"error\"}")
+      expect(response.body).to include("'2' is not a valid status")
+      expect(response.body).to eq("{\"error\":\"'2' is not a valid status\"}")
+      expect(response.status_message).to eq('Unprocessable Entity')
+      expect(response.unprocessable?).to be true
+      expect(response.accepted?).to be false
     end
   end
 
@@ -123,8 +128,12 @@ RSpec.describe 'Tea Subscription Request' do
 
       get "/api/v1/customers/#{id}/subscriptions"
 
+      response_body = JSON.parse(response.body, symbolize_names: true)
+      customer = response_body[:data]
+
       expect(response).to have_http_status(404)
-      expect { Subscription.find(id) }.to raise_error(ActiveRecord::RecordNotFound)
+      expect(customer).to be_nil
+      expect { Customer.find(id) }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 end
