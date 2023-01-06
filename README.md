@@ -2,7 +2,7 @@
 
 ## Tea Subscription
 
-[![ruby][ruby]][ruby-url] [![ror][ror]][ror-url] [![Postgres][Postgres]][Postgres-url]
+[![ruby][ruby]][ruby-url] [![ror][ror]][ror-url] [![Postgres][Postgres]][Postgres-url] [![RSpec][RSpec]][RSpec-url] [![Atom][Atom]][Atom-url]
 
 #### Contributors: [Anna Marie Sterling](https://github.com/AMSterling)
 
@@ -273,11 +273,17 @@ GET "/api/v1/customers/#{customer_id}/subscriptions"
 
 <!-- BADGE LINKS -->
 
+[Atom]: https://img.shields.io/badge/Atom-66595C?style=for-the-badge&logo=Atom&logoColor=white
+[Atom-url]: https://atom.io/
+
 [ruby]: https://img.shields.io/badge/Ruby-CC342D?style=for-the-badge&logo=ruby&logoColor=white
 [ruby-url]: https://www.ruby-lang.org/en/
 
 [ror]: https://img.shields.io/badge/Ruby_on_Rails-CC0000?style=for-the-badge&logo=ruby-on-rails&logoColor=white
 [ror-url]: https://rubyonrails.org/
+
+[RSpec]: https://custom-icon-badges.demolab.com/badge/RSpec-fffcf7?style=for-the-badge&logo=rspec
+[RSpec-url]: https://rspec.info/
 
 [Postgres]: https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white
 [Postgres-url]: https://www.postgresql.org/
