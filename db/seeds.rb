@@ -18,21 +18,21 @@ end
 Subscription.create(
   title: "#{Customer.first.first_name} #{Customer.first.last_name}'s #{Tea.first.title}",
   price: Faker::Number.within(range: 7..15),
-  frequency: 2,
+  frequency: [0, 1, 2, 3].sample,
   tea_id: Tea.first.id,
   customer_id: Customer.first.id
   )
 Subscription.create(
   title: "#{Customer.first.first_name} #{Customer.first.last_name}'s #{Tea.second.title}",
   price: Faker::Number.within(range: 7..15),
-  frequency: 2,
+  frequency: [0, 1, 2, 3].sample,
   tea_id: Tea.second.id,
   customer_id: Customer.first.id
   )
 Subscription.create(
   title: "#{Customer.first.first_name} #{Customer.first.last_name}'s #{Tea.third.title}",
   price: Faker::Number.within(range: 7..15),
-  frequency: 2,
+  frequency: [0, 1, 2, 3].sample,
   tea_id: Tea.third.id,
   customer_id: Customer.first.id
   )

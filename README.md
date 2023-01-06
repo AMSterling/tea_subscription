@@ -109,7 +109,7 @@ POST '/api/v1/subscriptions'
  ```
  {
      "data": {
-         "id": "1",
+         "id": "4",
          "type": "subscription",
          "attributes": {
              "title": "Customer's Herbal",
@@ -213,52 +213,52 @@ Fetch all subscriptions belonging to a customer.
 <br>
 
 ```
-GET "/api/v1/customers/1/subscriptions"
+GET "/api/v1/customers/#{customer_id}/subscriptions"
 ```
 
 **Sample response (status 200)**
 
  ```
  {
-    "data": [
-        {
-            "id": "1",
-            "type": "subscription",
-            "attributes": {
-                "title": "Zachery Zboncak's Green",
-                "status": "active",
-                "price": 12,
-                "frequency": "monthly",
-                "tea_id": 1,
-                "customer_id": 1
-            }
-        },
-        {
-            "id": "2",
-            "type": "subscription",
-            "attributes": {
-                "title": "Zachery Zboncak's Oolong",
-                "status": "active",
-                "price": 13,
-                "frequency": "monthly",
-                "tea_id": 2,
-                "customer_id": 1
-            }
-        },
-        {
-            "id": "3",
-            "type": "subscription",
-            "attributes": {
-                "title": "Zachery Zboncak's Oolong",
-                "status": "active",
-                "price": 14,
-                "frequency": "monthly",
-                "tea_id": 3,
-                "customer_id": 1
-            }
-        }
-    ]
-}
+     "data": [
+         {
+             "id": "1",
+             "type": "subscription",
+             "attributes": {
+                 "title": "Magdalen Vandervort's Black",
+                 "status": "active",
+                 "price": 7,
+                 "frequency": "quarterly",
+                 "tea_id": 1,
+                 "customer_id": 1
+             }
+         },
+         {
+             "id": "2",
+             "type": "subscription",
+             "attributes": {
+                 "title": "Magdalen Vandervort's Green",
+                 "status": "active",
+                 "price": 14,
+                 "frequency": "one_time",
+                 "tea_id": 2,
+                 "customer_id": 1
+             }
+         },
+         {
+             "id": "3",
+             "type": "subscription",
+             "attributes": {
+                 "title": "Magdalen Vandervort's Green",
+                 "status": "active",
+                 "price": 10,
+                 "frequency": "weekly",
+                 "tea_id": 3,
+                 "customer_id": 1
+             }
+         }
+     ]
+ }
  ```
 
 **Sample response (status 404)**
