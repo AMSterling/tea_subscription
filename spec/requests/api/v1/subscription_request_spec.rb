@@ -137,6 +137,9 @@ RSpec.describe 'Tea Subscription Request' do
 
       expect(response).to have_http_status(404)
       expect(customer).to be_nil
+      expect(response.body).to include("Couldn't find Customer with 'id'=90654501")
+      expect(response.body).to eq("{\"error\":\"Couldn't find Customer with 'id'=90654501\"}")
+      expect(response.status_message).to eq('Not Found')
       expect { Customer.find(id) }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
