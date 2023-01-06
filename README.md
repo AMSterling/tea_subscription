@@ -48,10 +48,10 @@ Fork and clone the project, then install the required gems with `bundle`. A full
 bundle install
 ```
 
-Reset the database:
+Reset and seed the database:
 
 ```sh
-rake db:{drop,create,migrate}
+rake db:{drop,create,migrate,seed}
 ```
 
 ## <a name="required-keys"></a> Required keys
@@ -92,22 +92,55 @@ Creates a new customer subscription.
 POST '/api/v1/subscriptions'
 ```
 
+**Sample body**
+
+ ```
+ {
+  "title": "Customer's Herbal",
+  "price": 15,
+  "frequency": "monthly",
+  "customer_id": {{customer_id}},
+  "tea_id": {{tea_id}}
+ }
+ ```
+
 **Sample response (status 200)**
 
  ```
-{
-  "data": {
-      "id" => 565,
-      "title" => "Bridgette Konopelski's Black",
-      "price" => 15,
-      "status" => "active",
-      "frequency" => "monthly",
-      "tea_id" => 575,
-      "customer_id" => 583,
-      "created_at" => Thu, 05 Jan 2023 17:30:42 UTC +00:00,
-      "updated_at" => Thu, 05 Jan 2023 17:30:42 UTC +00:00
-  }
-}
+ {
+     "data": {
+         "id": "1",
+         "type": "subscription",
+         "attributes": {
+             "title": "Customer's Herbal",
+             "status": "active",
+             "price": 15,
+             "frequency": "monthly",
+             "tea_id": 1,
+             "customer_id": 1
+         }
+     }
+ }
+ ```
+
+**Sample body**
+
+ ```
+ {
+   "title": "",
+   "price": 15,
+   "frequency": "monthly",
+   "customer_id": {{customer_id}},
+   "tea_id": {{tea_id}}
+ }
+ ```
+
+**Sample response (status 422)**
+
+ ```
+[
+  "Title can't be blank"
+]
  ```
 
 ---
@@ -121,27 +154,52 @@ Cancel a customer subscription.
 <br>
 
 ```
-PATCH '/api/v1/subscriptions'
+PATCH "/api/v1/subscriptions/#{id}"
 ```
 
 <br>
 
+**Sample body**
+
+ ```
+ {
+     "status": 1
+ }
+ ```
+
 **Sample response (status 200)**
 
  ```
-{
-    "data": {
-      "id" => 579,
-      "title" => "Paula Cole's White",
-      "price" => 14,
-      "status" => "cancelled",
-      "frequency" => "quarterly",
-      "tea_id" => 589,
-      "customer_id" => 590,
-      "created_at" => Thu, 05 Jan 2023 17:33:42 UTC +00:00,
-      "updated_at" => Thu, 05 Jan 2023 17:33:42 UTC +00:00
-    }
-}
+ {
+     "data": {
+         "id": "1",
+         "type": "subscription",
+         "attributes": {
+             "title": "Jesus Kunde's Oolong",
+             "status": "cancelled",
+             "price": 11,
+             "frequency": "monthly",
+             "tea_id": 1,
+             "customer_id": 1
+         }
+     }
+ }
+ ```
+
+**Sample body**
+
+ ```
+ {
+     "status": 2
+ }
+ ```
+
+**Sample response (status 422)**
+
+ ```
+ {
+     "error": "'2' is not a valid status"
+ }
  ```
 
 ---
@@ -155,27 +213,60 @@ Fetch all subscriptions belonging to a customer.
 <br>
 
 ```
-GET "/api/v1/customers/#{customer_id}/subscriptions"
+GET "/api/v1/customers/1/subscriptions"
 ```
 
 **Sample response (status 200)**
 
  ```
  {
-   :data=>
-  [{:id=>"594",
-    :type=>"subscription",
-    :attributes=>
-     {:title=>"Jan Muller's Black", :status=>"active", :price=>10, :frequency=>"one_time", :tea_id=>604, :customer_id=>598}},
-   {:id=>"595",
-    :type=>"subscription",
-    :attributes=>
-     {:title=>"Jan Muller's White", :status=>"active", :price=>11, :frequency=>"quarterly", :tea_id=>605, :customer_id=>598}},
-   {:id=>"596",
-    :type=>"subscription",
-    :attributes=>
-     {:title=>"Jan Muller's Herbal", :status=>"active", :price=>12, :frequency=>"quarterly", :tea_id=>606, :customer_id=>598}}]
+    "data": [
+        {
+            "id": "1",
+            "type": "subscription",
+            "attributes": {
+                "title": "Zachery Zboncak's Green",
+                "status": "active",
+                "price": 12,
+                "frequency": "monthly",
+                "tea_id": 1,
+                "customer_id": 1
+            }
+        },
+        {
+            "id": "2",
+            "type": "subscription",
+            "attributes": {
+                "title": "Zachery Zboncak's Oolong",
+                "status": "active",
+                "price": 13,
+                "frequency": "monthly",
+                "tea_id": 2,
+                "customer_id": 1
+            }
+        },
+        {
+            "id": "3",
+            "type": "subscription",
+            "attributes": {
+                "title": "Zachery Zboncak's Oolong",
+                "status": "active",
+                "price": 14,
+                "frequency": "monthly",
+                "tea_id": 3,
+                "customer_id": 1
+            }
+        }
+    ]
 }
+ ```
+
+**Sample response (status 404)**
+
+ ```
+ {
+    "error": "Couldn't find Customer with 'id'=4168498141546"
+ }
  ```
 
 ---
