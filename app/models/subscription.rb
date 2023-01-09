@@ -1,3 +1,4 @@
+# app/models/subscription.rb
 class Subscription < ApplicationRecord
   validates :title, :status, :frequency, presence: true
   validates :price, presence: true, numericality: true

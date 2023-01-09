@@ -1,3 +1,4 @@
+# app/controllers/api/v1/subscriptions_controller.rb
 class Api::V1::SubscriptionsController < ApplicationController
   before_action :set_subscription, only: %i[update]
 

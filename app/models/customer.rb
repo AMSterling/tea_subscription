@@ -1,3 +1,4 @@
+# app/models/customer.rb
 class Customer < ApplicationRecord
   validates :first_name, :last_name, :address, presence: true
   validates :email, presence: true, uniqueness: { case_sensitive: false }

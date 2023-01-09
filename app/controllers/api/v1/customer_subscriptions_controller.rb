@@ -1,3 +1,4 @@
+# app/controllers/api/v1/customer_subscriptions_controller.rb
 class Api::V1::CustomerSubscriptionsController < ApplicationController
   before_action :set_customer
 

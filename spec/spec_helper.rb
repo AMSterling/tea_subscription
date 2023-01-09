@@ -13,7 +13,7 @@
 # it.
 #
 require 'webmock/rspec'
-require 'simplecov' #open coverage/index.html
+require 'simplecov' # open coverage/index.html
 SimpleCov.start 'rails'
 SimpleCov.add_filter %w[config channels jobs mailers]
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration

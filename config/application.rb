@@ -33,3 +33,11 @@ module TeaSubscription
     config.api_only = true
   end
 end
+
+# .rubocop.yml
+
+# Style/Documentation:
+#   Enabled: false
+
+# Style/FrozenStringLiteralComment:
+#   Enabled: false
