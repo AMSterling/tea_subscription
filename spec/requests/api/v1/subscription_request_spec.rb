@@ -13,86 +13,90 @@ RSpec.describe 'Tea Subscription Request' do
   let!(:c2_sub_2) { customer_2_subs.second }
   let!(:c2_sub_3) { customer_2_subs.third }
 
-  context 'subscrition creation' do
-    let!(:tea) { create(:tea) }
-    let!(:customer) { create(:customer) }
+  describe '.create' do
+    context 'subscrition creation' do
+      let!(:tea) { create(:tea) }
+      let!(:customer) { create(:customer) }
 
-    it 'creates a new customer subscription' do
-      sub_params = ({
-        title: "#{customer.first_name} #{customer.last_name}'s #{tea.title}",
-        price: Faker::Number.within(range: 7..15),
-        frequency: 2,
-        tea_id: tea.id,
-        customer_id: customer.id
-        })
+      it 'creates a new customer subscription' do
+        sub_params = {
+          title: "#{customer.first_name} #{customer.last_name}'s #{tea.title}",
+          price: Faker::Number.within(range: 7..15),
+          frequency: 2,
+          tea_id: tea.id,
+          customer_id: customer.id
+        }
 
-      headers = { "CONTENT_TYPE" => "application/json" }
+        headers = { 'CONTENT_TYPE' => 'application/json' }
 
-      post '/api/v1/subscriptions', headers: headers, params: JSON.generate(subscription: sub_params)
-      created_sub = Subscription.last
+        post '/api/v1/subscriptions', headers: headers, params: JSON.generate(subscription: sub_params)
+        created_sub = Subscription.last
 
-      expect(response).to be_successful
-      expect(response).to have_http_status(200)
-      expect(Subscription.count).to eq(7)
-      expect(created_sub.title).to eq(sub_params[:title])
-      expect(created_sub.price).to eq(sub_params[:price])
-      expect(created_sub.frequency).to eq('monthly')
-      expect(created_sub.tea_id).to eq(sub_params[:tea_id])
-      expect(created_sub.customer_id).to eq(sub_params[:customer_id])
-      expect(created_sub.status).to eq('active')
-    end
+        expect(response).to be_successful
+        expect(response).to have_http_status(200)
+        expect(Subscription.count).to eq(7)
+        expect(created_sub.title).to eq(sub_params[:title])
+        expect(created_sub.price).to eq(sub_params[:price])
+        expect(created_sub.frequency).to eq('monthly')
+        expect(created_sub.tea_id).to eq(sub_params[:tea_id])
+        expect(created_sub.customer_id).to eq(sub_params[:customer_id])
+        expect(created_sub.status).to eq('active')
+      end
 
-    it 'returns 422 if subscription cannot be created' do
-      sub_params = ({
-        title: '',
-        price: Faker::Number.within(range: 7..15),
-        frequency: 2,
-        tea_id: tea.id,
-        customer_id: customer.id
-        })
+      it 'returns 422 if subscription cannot be created' do
+        sub_params = {
+          title: '',
+          price: Faker::Number.within(range: 7..15),
+          frequency: 2,
+          tea_id: tea.id,
+          customer_id: customer.id
+        }
 
-      headers = { 'CONTENT_TYPE' => 'application/json' }
+        headers = { 'CONTENT_TYPE' => 'application/json' }
 
-      post '/api/v1/subscriptions', headers: headers, params: JSON.generate(subscription: sub_params)
+        post '/api/v1/subscriptions', headers: headers, params: JSON.generate(subscription: sub_params)
 
-      expect(response).to have_http_status(422)
-      expect(response.body).to include("Title can't be blank")
+        expect(response).to have_http_status(422)
+        expect(response.body).to include("Title can't be blank")
+      end
     end
   end
 
-  context 'subscrition cancellation' do
-    it 'cancels a customer subscription' do
-      id = create(:subscription, status: 0).id
-      previous_status = Subscription.last.status
-      sub_params = { status: 1 }
+  describe '.update' do
+    context 'subscrition cancellation' do
+      it 'cancels a customer subscription' do
+        id = create(:subscription, status: 0).id
+        previous_status = Subscription.last.status
+        sub_params = { status: 1 }
 
-      headers = { 'CONTENT_TYPE' => 'application/json' }
+        headers = { 'CONTENT_TYPE' => 'application/json' }
 
-      patch "/api/v1/subscriptions/#{id}", headers: headers, params: JSON.generate(subscription: sub_params)
-      subscription = Subscription.find_by(id: id)
+        patch "/api/v1/subscriptions/#{id}", headers: headers, params: JSON.generate(subscription: sub_params)
+        subscription = Subscription.find_by(id: id)
 
-      expect(response).to be_successful
-      expect(response).to have_http_status(200)
-      expect(subscription.status).to_not eq(previous_status)
-      expect(subscription.status).to eq('cancelled')
-    end
+        expect(response).to be_successful
+        expect(response).to have_http_status(200)
+        expect(subscription.status).to_not eq(previous_status)
+        expect(subscription.status).to eq('cancelled')
+      end
 
-    it 'returns error if subscription cannot be cancelled' do
-      id = create(:subscription, status: 0).id
-      sub_params = { status: 2 }
+      it 'returns error if subscription cannot be cancelled' do
+        id = create(:subscription, status: 0).id
+        sub_params = { status: 2 }
 
-      headers = { 'CONTENT_TYPE' => 'application/json' }
+        headers = { 'CONTENT_TYPE' => 'application/json' }
 
-      patch "/api/v1/subscriptions/#{id}", headers: headers, params: JSON.generate(subscription: sub_params)
-      subscription = Subscription.find_by(id: id)
+        patch "/api/v1/subscriptions/#{id}", headers: headers, params: JSON.generate(subscription: sub_params)
+        subscription = Subscription.find_by(id: id)
 
-      expect(response).to_not be_successful
-      expect(response).to have_http_status(422)
-      expect(response.body).to include("'2' is not a valid status")
-      expect(response.body).to eq("{\"error\":\"'2' is not a valid status\"}")
-      expect(response.status_message).to eq('Unprocessable Entity')
-      expect(response.unprocessable?).to be true
-      expect(response.accepted?).to be false
+        expect(response).to_not be_successful
+        expect(response).to have_http_status(422)
+        expect(response.body).to include("'2' is not a valid status")
+        expect(response.body).to eq("{\"error\":\"'2' is not a valid status\"}")
+        expect(response.status_message).to eq('Unprocessable Entity')
+        expect(response.unprocessable?).to be true
+        expect(response.accepted?).to be false
+      end
     end
   end
 
@@ -116,10 +120,10 @@ RSpec.describe 'Tea Subscription Request' do
         expect(subscription[:attributes][:title]).to be_a String
         expect(subscription[:attributes][:title]).to include("#{customer_1.first_name} #{customer_1.last_name}")
         expect(subscription[:attributes][:status]).to be_a String
-        expect(subscription[:attributes][:status]).to be_in(['active', 'cancelled'])
+        expect(subscription[:attributes][:status]).to be_in(%w[active cancelled])
         expect(subscription[:attributes][:price]).to be_an Integer
         expect(subscription[:attributes][:frequency]).to be_a String
-        expect(subscription[:attributes][:frequency]).to be_in(['one_time', 'weekly', 'monthly', 'quarterly'])
+        expect(subscription[:attributes][:frequency]).to be_in(%w[one_time weekly monthly quarterly])
         expect(subscription[:attributes][:tea_id]).to be_an Integer
         expect(subscription[:attributes][:customer_id]).to be_an Integer
         expect(subscription[:attributes][:customer_id]).to eq(customer_1.id)
