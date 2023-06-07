@@ -1,6 +1,6 @@
 <div align="center">
 
-## Tea Subscription
+# Tea Subscription
 
 [![ruby][ruby]][ruby-url] [![ror][ror]][ror-url] [![Postgres][Postgres]][Postgres-url] [![RSpec][RSpec]][RSpec-url] [![Atom][Atom]][Atom-url]
 
@@ -16,7 +16,7 @@ A rails backend API; Tea Subscription was built with test-driven development, wi
 
 ---
 
-# <a name="contents"></a> Table of contents
+## <a name="contents"></a> Table of contents
 
 - [Architecture](#architecture)
 - [Database setup](#database-setup)
@@ -28,14 +28,14 @@ A rails backend API; Tea Subscription was built with test-driven development, wi
 
 ---
 
-# <a name="architecture"></a>Architecture
+## <a name="architecture"></a>Architecture
 
 # <img src="app/assets/images/schema-diagram.png">
 
 ---
 <p align="right">(<a href="#contents">back to top</a>)</p>
 
-# <a name="database-setup"></a>Database Setup
+## <a name="database-setup"></a>Database Setup
 
 Instructions to set up a local version of Tea Subscription:
 
@@ -76,9 +76,9 @@ rails s
 ---
 <p align="right">(<a href="#contents">back to top</a>)</p>
 
-# <a name="endpoints"></a>Endpoints
+## <a name="endpoints"></a>Endpoints
 
-## <a name="create-sub"></a>Create Subscription
+### <a name="create-sub"></a>Create Subscription
 
 Creates a new customer subscription.
 
@@ -142,7 +142,7 @@ POST '/api/v1/subscriptions'
 ---
 <p align="right">(<a href="#contents">back to top</a>)</p>
 
-## <a name="cancel-sub"></a>Cancel Subscription
+### <a name="cancel-sub"></a>Cancel Subscription
 
 Cancel a customer subscription.
 
@@ -200,7 +200,7 @@ PATCH "/api/v1/subscriptions/#{id}"
 ---
 <p align="right">(<a href="#contents">back to top</a>)</p>
 
-## <a name="customer-subs"></a>Customer Subscriptions
+### <a name="customer-subs"></a>Customer Subscriptions
 
 Fetch all subscriptions belonging to a customer.
 
