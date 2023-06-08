@@ -1,5 +1,11 @@
-<div align="center">
+<div align="right">
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/c6fbbe6ac8671bb65dcd/maintainability)](https://codeclimate.com/github/AMSterling/tea_subscription/maintainability)
+
+</div>
+
+<div align="center">
+  
 # Tea Subscription
 
 [![ruby][ruby]][ruby-url] [![ror][ror]][ror-url] [![Postgres][Postgres]][Postgres-url] [![RSpec][RSpec]][RSpec-url] [![Atom][Atom]][Atom-url]
