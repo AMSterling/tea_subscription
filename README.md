@@ -5,12 +5,18 @@
 </div>
 
 <div align="center">
-  
+
 # Tea Subscription
+
+  <p>
+    <a href="https://github.com/AMSterling/tea_subscription">
+      <img src="https://media.giphy.com/media/WQMgnHWQdyZjO/giphy.gif">
+    </a>
+  </p>
+
 
 [![ruby][ruby]][ruby-url] [![ror][ror]][ror-url] [![Postgres][Postgres]][Postgres-url] [![RSpec][RSpec]][RSpec-url] [![Atom][Atom]][Atom-url]
 
-#### Contributors: [Anna Marie Sterling](https://github.com/AMSterling)
 
 </div>
 
@@ -25,12 +31,13 @@ A rails backend API; Tea Subscription was built with test-driven development, wi
 ## <a name="contents"></a> Table of contents
 
 - [Architecture](#architecture)
+- [Prerequisites](#prerequisites)
 - [Database setup](#database-setup)
   - [Required API keys](#required-keys)
 - [Endpoints](#endpoints)
   - [Create Subscription](#create-sub)
   - [Cancel Subscription](#cancel-sub)
-  - [Fetch Customer Subscriptions](#customer-subs)
+  - [Customer Subscriptions](#customer-subs)
 
 ---
 
@@ -40,6 +47,25 @@ A rails backend API; Tea Subscription was built with test-driven development, wi
 
 ---
 <p align="right">(<a href="#contents">back to top</a>)</p>
+
+## <a name="prerequisites"></a>Prerequisites
+
+
+Ruby:
+  ```sh
+  2.7.4
+  ```
+Rails:
+  ```sh
+  5.2.8
+  ```
+Database:
+  ```sh
+  postgresql@14
+  ```
+---
+<p align="right">(<a href="#contents">back to top</a>)</p>
+
 
 ## <a name="database-setup"></a>Database Setup
 
@@ -272,9 +298,15 @@ GET "/api/v1/customers/#{customer_id}/subscriptions"
 ---
 <p align="right">(<a href="#contents">back to top</a>)</p>
 
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![LinkedIn][LinkedIn]][LinkedIn-url]
+
+
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-
 [contributors-shield]: https://img.shields.io/github/contributors/AMSterling/tea_subscription.svg?style=for-the-badge
 [contributors-url]: https://github.com/AMSterling/tea_subscription/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/AMSterling/tea_subscription.svg?style=for-the-badge
@@ -286,8 +318,8 @@ GET "/api/v1/customers/#{customer_id}/subscriptions"
 [issues-url]: https://github.com/AMSterling/tea_subscription/issues
 [license-shield]: https://img.shields.io/github/license/AMSterling/tea_subscription.svg?style=for-the-badge
 [license-url]: https://github.com/AMSterling/tea_subscription/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/sterling-316a6223a/
+[LinkedIn]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[LinkedIn-url]: https://linkedin.com/in/sterling-316a6223a/
 
 [Atom]: https://img.shields.io/badge/Atom-66595C?style=for-the-badge&logo=Atom&logoColor=white
 [Atom-url]: https://github.com/atom/atom/releases/tag/v1.60.0
@@ -311,7 +343,7 @@ GET "/api/v1/customers/#{customer_id}/subscriptions"
 [Git-url]: https://git-scm.com/
 
 [GitHub Badge]: https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white
-[GitHub-url]: https://github.com/<Username>/
+[GitHub-url]: https://github.com/enter_url/
 
 [GitHub Actions]: https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white
 [GitHub Actions-url]: https://github.com/features/actions
@@ -335,7 +367,7 @@ GET "/api/v1/customers/#{customer_id}/subscriptions"
 [jQuery-url]: https://github.com/rails/jquery-rails
 
 [LinkedIn Badge]: https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white
-[LinkedIn-url]: https://www.linkedin.com/in/<Username>/
+[LinkedIn-url]: https://www.linkedin.com/in/enter_url/
 
 [MacOS]: https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0
 [MacOS-url]: https://www.apple.com/macos
