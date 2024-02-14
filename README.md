@@ -321,7 +321,7 @@ GET "/api/v1/customers/#{customer_id}/subscriptions"
 [LinkedIn]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [LinkedIn-url]: https://linkedin.com/in/sterling-316a6223a/
 
-[Atom]: https://img.shields.io/badge/Atom-66595C?style=for-the-badge&logo=Atom&logoColor=white
+[Atom]: https://custom-icon-badges.demolab.com/badge/Atom-5FB57D?style=for-the-badge&logo=atom
 [Atom-url]: https://github.com/atom/atom/releases/tag/v1.60.0
 
 [Bootstrap]: https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white
