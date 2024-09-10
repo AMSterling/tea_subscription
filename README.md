@@ -122,19 +122,19 @@ POST '/api/v1/subscriptions'
 
 **Sample body**
 
- ```
+ ```json
  {
-  "title": "Customer's Herbal",
-  "price": 15,
-  "frequency": "monthly",
-  "customer_id": {{customer_id}},
-  "tea_id": {{tea_id}}
+    "title": "Customer's Herbal",
+    "price": 15,
+    "frequency": "monthly",
+    "customer_id": {{customer_id}},
+    "tea_id": {{tea_id}}
  }
  ```
 
 **Sample response (status 200)**
 
- ```
+ ```json
  {
      "data": {
          "id": "4",
@@ -153,21 +153,21 @@ POST '/api/v1/subscriptions'
 
 **Sample body**
 
- ```
+ ```json
  {
-   "title": "",
-   "price": 15,
-   "frequency": "monthly",
-   "customer_id": {{customer_id}},
-   "tea_id": {{tea_id}}
+     "title": "",
+     "price": 15,
+     "frequency": "monthly",
+     "customer_id": {{customer_id}},
+     "tea_id": {{tea_id}}
  }
  ```
 
 **Sample response (status 422)**
 
- ```
+ ```json
 [
-  "Title can't be blank"
+    "Title can't be blank"
 ]
  ```
 
@@ -188,7 +188,7 @@ PATCH "/api/v1/subscriptions/#{id}"
 
 **Sample body**
 
- ```
+ ```json
  {
      "status": 1
  }
@@ -196,7 +196,7 @@ PATCH "/api/v1/subscriptions/#{id}"
 
 **Sample response (status 200)**
 
- ```
+ ```json
  {
      "data": {
          "id": "1",
@@ -215,7 +215,7 @@ PATCH "/api/v1/subscriptions/#{id}"
 
 **Sample body**
 
- ```
+ ```json
  {
      "status": 2
  }
@@ -223,7 +223,7 @@ PATCH "/api/v1/subscriptions/#{id}"
 
 **Sample response (status 422)**
 
- ```
+ ```json
  {
      "error": "'2' is not a valid status"
  }
@@ -244,7 +244,7 @@ GET "/api/v1/customers/#{customer_id}/subscriptions"
 
 **Sample response (status 200)**
 
- ```
+ ```json
  {
      "data": [
          {
@@ -289,7 +289,7 @@ GET "/api/v1/customers/#{customer_id}/subscriptions"
 
 **Sample response (status 404)**
 
- ```
+ ```json
  {
     "error": "Couldn't find Customer with 'id'=4168498141546"
  }
